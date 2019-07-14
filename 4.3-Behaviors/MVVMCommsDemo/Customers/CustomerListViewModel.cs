@@ -50,8 +50,7 @@ namespace MVVMCommsDemo.Customers
                 //1- make the property as a DependencyProperty, which has its own internal notification mechanism that the binding is natively aware of,
                 //DependencyProperties declarations are verbose, and require our object to inherit from dependency object,
                 //both of which make it a heavyweight approach to achieve the goal of change notifications in model and view model objects
-                //2- use INotifyPropertyChange (INPC) : more suitable for view and view model
-					
+                //2- use INotifyPropertyChange (INPC) : more suitable for view and view model					
                     PropertyChanged(this, new PropertyChangedEventArgs(nameof(Customers)));
                 }
 

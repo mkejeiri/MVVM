@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Zza.Data
 {
-    public class Customer
+    public class Customer : INotifyPropertyChanged
     {
         public Customer()
         {
@@ -16,6 +16,8 @@ namespace Zza.Data
         public Guid Id { get; set; }
         public Guid? StoreId { get; set; }
         private string _firstName;
+        private string _lastName;
+
         public string FirstName
         {
             get
@@ -25,9 +27,19 @@ namespace Zza.Data
             set
             {
                 _firstName = value;
+                PropertyChanged(this, new PropertyChangedEventArgs(nameof(FirstName)));
             }
         }
-        public string LastName { get; set; }
+
+        public string LastName
+        {
+            get => _lastName;
+            set {
+            _lastName = value;
+            PropertyChanged(this, new PropertyChangedEventArgs(nameof(LastName)));
+            }
+        }
+
         public string FullName { get { return FirstName + " " + LastName; } }
         public string Phone { get; set; }
         public string Email { get; set; }
@@ -36,5 +48,9 @@ namespace Zza.Data
         public string State { get; set; }
         public string Zip { get; set; }
         public List<Order> Orders { get; set; }
+
+        //a delegate trick where we assign an empty anonymous method in as a subscriber.
+        //i.e. a subscriber is always in the list,so never we will have PropertyChanged being null.
+        public event PropertyChangedEventHandler PropertyChanged = delegate {};
     }
 }
