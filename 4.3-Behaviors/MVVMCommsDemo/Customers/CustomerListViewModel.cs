@@ -64,6 +64,7 @@ namespace MVVMCommsDemo.Customers
                 if (_selectedCustomer != value)
                 {
                     _selectedCustomer = value;
+					//need to raise that event so the DeleteCommand enable/disable is refresh :  step 3
                     DeleteCommand.RaiseCanExecuteChanged();
                     PropertyChanged(this, new PropertyChangedEventArgs(nameof(SelectedCustomer)));
                 }

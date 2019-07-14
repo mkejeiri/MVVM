@@ -65,6 +65,7 @@ namespace MVVMCommsDemo.Customers
             set
             {
                 _selectedCustomer = value;
+               //need to raise that event so the DeleteCommand enable/disable is refresh :  step 3
                 DeleteCommand.RaiseCanExecuteChanged();
             }
         }
