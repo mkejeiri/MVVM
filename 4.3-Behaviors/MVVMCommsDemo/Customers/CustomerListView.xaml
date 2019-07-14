@@ -33,6 +33,7 @@
         </DataTemplate>
     </UserControl.Resources>
     <UserControl.InputBindings>
+	 <!--ctrl+D  Key="D"  Modifiers="Control"  KeyBinding are keyborad shortcut -->
         <KeyBinding Key="D"
                     Modifiers="Control"
                     Command="{Binding DeleteCommand}" />
