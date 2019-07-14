@@ -25,6 +25,9 @@ namespace MVVMCommsDemo
             DependencyProperty.RegisterAttached("LoadedMethodName",
             typeof(string), typeof(MvvmBehaviors), new PropertyMetadata(null, OnLoadedMethodNameChanged));
 
+        //this will handle loaded event of the view
+        //i.e : e.NewValue = "LoadCustomers"
+        //we should set on root element like this:  local:MvvmBehaviors.LoadedMethodName="LoadCustomers">
         private static void OnLoadedMethodNameChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             FrameworkElement element = d as FrameworkElement;

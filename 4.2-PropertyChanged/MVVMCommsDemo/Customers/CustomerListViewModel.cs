@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using MVVMCommsDemo.Services;
 using Zza.Data;
-using System.Windows.Input;
 
 namespace MVVMCommsDemo.Customers
 {
-    public class CustomerListViewModel
+    public class CustomerListViewModel : INotifyPropertyChanged
     {
         //ObservableCollection raise INotifyCollectionChanged, INotifyPropertyChanged
         private ObservableCollection<Customer> _customers;
@@ -52,6 +46,7 @@ namespace MVVMCommsDemo.Customers
             set
             {
                 _customers = value;
+                PropertyChanged(this, new PropertyChangedEventArgs(nameof(Customers)));
             }
         }
 
@@ -80,5 +75,7 @@ namespace MVVMCommsDemo.Customers
         {
             return SelectedCustomer != null;
         }
+
+        public event PropertyChangedEventHandler PropertyChanged = delegate {};
     }
 }

@@ -9,8 +9,8 @@
              x:Class="MVVMCommsDemo.Customers.CustomerListView"
              mc:Ignorable="d"
              d:DesignHeight="300"
-             d:DesignWidth="300"
-             >
+             d:DesignWidth="300">
+    <!--local:MvvmBehaviors.LoadedMethodName="LoadCustomers">-->
     <UserControl.Resources>
         <DataTemplate x:Key="CustomerTemplate">
             <Border BorderThickness="3"
@@ -32,6 +32,10 @@
     <UserControl.DataContext>
         <cust:CustomerListViewModel />
     </UserControl.DataContext>
+    <!--
+        we use Blend SDK to call the method LoadCustomers when EventName="Loaded" fired
+        {Binding} means the entire DataContext = ViewModel = CustomerListViewModel
+    --> 
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
             <ei:CallMethodAction TargetObject="{Binding}" MethodName="LoadCustomers" />
@@ -59,8 +63,6 @@
                 VerticalAlignment="Top"
                 Width="100"
                 Click="OnChangeCustomer" />
-
-
         <DataGrid x:Name="customerDataGrid"
                   AutoGenerateColumns="False"
                   ItemsSource="{Binding Customers}"
