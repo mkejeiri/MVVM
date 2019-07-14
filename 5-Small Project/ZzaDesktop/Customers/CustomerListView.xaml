@@ -27,9 +27,12 @@
             <StackPanel Orientation="Horizontal"
                         HorizontalAlignment="Right"
                         Grid.Column="1">
+                <!--property called SearchInput that to be set every time a keystroke happens, 
+                so we use the UpdateSourceTrigger property on a Binding, and set that to PropertyChanged.-->
                 <Label Content="Search:"/>
                 <TextBox Text="{Binding SearchInput, UpdateSourceTrigger=PropertyChanged}"
                          Width="150"/>
+                <!--ClearSearchCommand-->
                 <Button Content="X"
                         Command="{Binding ClearSearchCommand}"/>
             </StackPanel>

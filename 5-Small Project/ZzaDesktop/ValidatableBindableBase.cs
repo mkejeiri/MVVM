@@ -12,7 +12,7 @@ namespace ZzaDesktop
     //- As a general rule all the logic that supports validation and defines what rules exist for what properties, should be part of the model or the view model,
     //NOT the VIEW itself...
     //- INotifyDataErrorInfo was introduced to WPF in. NET 4.5, it supports querying the object for errors associated with properties,
-    //and it fixes a couple of deficiencies with all of the other validation options (throwing exceptions, implementing IDataErrorInfo interface, validation rules). 
+    //and it fixes a couple of deficiencies with all of the other validation options (throwing exceptions, implementing IDataErrorInfo interface, using WPF validation rules). 
     //Specifically, it allows asynchronous validation and it allows properties to have more than one error associated with them.
 
     //ValidatableBindableBase is a base class (common to views/model view) for validation and also should have a INotifyPropertyChanged (INPC) capabilities,
@@ -44,7 +44,6 @@ namespace ZzaDesktop
 
         //we could wire into this ValidateProperty any number of approaches to validation,
         // but most prominent approach in. NET applications these days is to use data annotations
-
         private void ValidateProperty<T>(string propertyName, T value)
         {
             //Data annotations contain the concept of ValidationContext that we can point at any given object,

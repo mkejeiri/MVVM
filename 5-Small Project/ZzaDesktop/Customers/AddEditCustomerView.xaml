@@ -63,7 +63,11 @@
             <Label VerticalAlignment="Center" Grid.Row="3" Margin="3" HorizontalAlignment="Left" Grid.Column="0" Content="Phone:"/>
             <TextBox x:Name="phoneTextBox" Width="120" VerticalAlignment="Center" Text="{Binding Phone, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.Row="3" Margin="3" Height="23" HorizontalAlignment="Left" Grid.Column="1"/>-->
 
-            <!--we supports ValidatesOnNotifyDataErrors through ValidatableBindableBase, instead of NotifyOnValidationError & ValidatesOnExceptions-->
+            <!--we supports only ValidatesOnNotifyDataErrors through ValidatableBindableBase, instead of NotifyOnValidationError & ValidatesOnExceptions
+            That causes that binding to look when it first hooks up to its databound object, see if it implements INotifyDataErrorInfo, and if so, 
+            start querying it whenever it gets property changed notifications for that property. If there are errors returned, then it will set 
+            certain attached properties on the associated control, attach properties such as ValidationHasErrors,ValidationErrorsCollection
+            -->
             <Label VerticalAlignment="Center" Grid.Row="0" Margin="3" HorizontalAlignment="Left" Grid.Column="0" Content="First Name:"/>
             <TextBox x:Name="firstNameTextBox" Width="120" VerticalAlignment="Center" Text="{Binding FirstName, Mode=TwoWay, ValidatesOnNotifyDataErrors=true}" Grid.Row="0" Margin="3" Height="23" HorizontalAlignment="Left" Grid.Column="1"/>
             <Label VerticalAlignment="Center" Grid.Row="1" Margin="3" HorizontalAlignment="Left" Grid.Column="0" Content="Last Name:"/>
