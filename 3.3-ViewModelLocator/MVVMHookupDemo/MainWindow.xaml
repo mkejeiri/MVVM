@@ -8,7 +8,12 @@
     <Grid>
 
 
-        <Customers:CustomerListView />
+        <Customers:CustomerListView Margin="0,0,-0.333,148.667" />
+        <Customers:CustomerDetailView HorizontalAlignment="Left"
+                                      Height="100"
+                                      Margin="41,203,0,0"
+                                      VerticalAlignment="Top"
+                                      Width="100" />
 
 
     </Grid>

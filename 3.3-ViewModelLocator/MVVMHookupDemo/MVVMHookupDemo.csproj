@@ -61,6 +61,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Customers\CustomerDetailView.xaml.cs">
+      <DependentUpon>CustomerDetailView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Customers\CustomerDetailViewModel.cs" />
     <Compile Include="Customers\CustomerListView.xaml.cs">
       <DependentUpon>CustomerListView.xaml</DependentUpon>
     </Compile>
@@ -70,6 +74,11 @@
     <Compile Include="Services\ICustomersRepository.cs" />
     <Compile Include="Services\IOrdersRepository.cs" />
     <Compile Include="Services\OrdersRepository.cs" />
+    <Compile Include="ViewModelLocator.cs" />
+    <Page Include="Customers\CustomerDetailView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Customers\CustomerListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
