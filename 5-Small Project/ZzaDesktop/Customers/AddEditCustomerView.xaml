@@ -1,0 +1,99 @@
+﻿<UserControl
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ZzaDesktop.Customers"
+             xmlns:Data="clr-namespace:Zza.Data;assembly=Zza.Data"
+             xmlns:conv="clr-namespace:ZzaDesktop.Converters"
+             x:Class="ZzaDesktop.Customers.AddEditCustomerView"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <!--<UserControl.Resources>
+        <CollectionViewSource x:Key="customerViewSource" d:DesignSource="{d:DesignInstance {x:Type Data:Customer}, CreateList=True}"/>
+    </UserControl.Resources>-->
+
+    <!--define 2 instances of NegatableBooleanToVisibilityConverter, one with Negate =true and one without-->
+    <UserControl.Resources>
+        <conv:NegatableBooleanToVisibilityConverter x:Key="VisConverter"/>
+        <conv:NegatableBooleanToVisibilityConverter x:Key="NegVisConverter" Negate="True"/>
+
+        <!--
+        Adding a tooltip with the validation error for the control is as simple as defining a style for it. In that Style we'll implicitly target the TextBox. 
+        Within this scope we will set up a Style trigger that watches the attached property Validation.HasError 
+        When that is set to true, then we'll set the ToolTip property of the TextBox, 
+        
+        for value binding : Validation.Errors attached property, which is a collection for this control, 
+        goes to the CurrentItem, which will be the first item in the collection, 
+        and gets the ErrorContent, which will be the string, and it uses that to set the ToolTip.-->
+        <Style TargetType="TextBox">
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError"
+                         Value="True">
+                    <Setter Property="ToolTip"
+                            Value="{Binding RelativeSource={x:Static RelativeSource.Self},
+                        Path=(Validation.Errors).CurrentItem.ErrorContent}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid x:Name="grid1" DataContext="{Binding Customer}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <!-- AutoGen by DataSource from the designer
+            <Label VerticalAlignment="Center" Grid.Row="0" Margin="3" HorizontalAlignment="Left" Grid.Column="0" Content="First Name:"/>
+            <TextBox x:Name="firstNameTextBox" Width="120" VerticalAlignment="Center" Text="{Binding FirstName, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.Row="0" Margin="3" Height="23" HorizontalAlignment="Left" Grid.Column="1"/>
+            <Label VerticalAlignment="Center" Grid.Row="1" Margin="3" HorizontalAlignment="Left" Grid.Column="0" Content="Last Name:"/>
+            <TextBox x:Name="lastNameTextBox" Width="120" VerticalAlignment="Center" Text="{Binding LastName, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.Row="1" Margin="3" Height="23" HorizontalAlignment="Left" Grid.Column="1"/>
+            <Label VerticalAlignment="Center" Grid.Row="2" Margin="3" HorizontalAlignment="Left" Grid.Column="0" Content="Email:"/>
+            <TextBox x:Name="emailTextBox" Width="120" VerticalAlignment="Center" Text="{Binding Email, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.Row="2" Margin="3" Height="23" HorizontalAlignment="Left" Grid.Column="1"/>
+            <Label VerticalAlignment="Center" Grid.Row="3" Margin="3" HorizontalAlignment="Left" Grid.Column="0" Content="Phone:"/>
+            <TextBox x:Name="phoneTextBox" Width="120" VerticalAlignment="Center" Text="{Binding Phone, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.Row="3" Margin="3" Height="23" HorizontalAlignment="Left" Grid.Column="1"/>-->
+
+            <!--we supports ValidatesOnNotifyDataErrors through ValidatableBindableBase, instead of NotifyOnValidationError & ValidatesOnExceptions-->
+            <Label VerticalAlignment="Center" Grid.Row="0" Margin="3" HorizontalAlignment="Left" Grid.Column="0" Content="First Name:"/>
+            <TextBox x:Name="firstNameTextBox" Width="120" VerticalAlignment="Center" Text="{Binding FirstName, Mode=TwoWay, ValidatesOnNotifyDataErrors=true}" Grid.Row="0" Margin="3" Height="23" HorizontalAlignment="Left" Grid.Column="1"/>
+            <Label VerticalAlignment="Center" Grid.Row="1" Margin="3" HorizontalAlignment="Left" Grid.Column="0" Content="Last Name:"/>
+            <TextBox x:Name="lastNameTextBox" Width="120" VerticalAlignment="Center" Text="{Binding LastName, Mode=TwoWay, ValidatesOnNotifyDataErrors=true}" Grid.Row="1" Margin="3" Height="23" HorizontalAlignment="Left" Grid.Column="1"/>
+            <Label VerticalAlignment="Center" Grid.Row="2" Margin="3" HorizontalAlignment="Left" Grid.Column="0" Content="Email:"/>
+            <TextBox x:Name="emailTextBox" Width="120" VerticalAlignment="Center" Text="{Binding Email, Mode=TwoWay, ValidatesOnNotifyDataErrors=true}" Grid.Row="2" Margin="3" Height="23" HorizontalAlignment="Left" Grid.Column="1"/>
+            <Label VerticalAlignment="Center" Grid.Row="3" Margin="3" HorizontalAlignment="Left" Grid.Column="0" Content="Phone:"/>
+            <TextBox x:Name="phoneTextBox" Width="120" VerticalAlignment="Center" Text="{Binding Phone, Mode=TwoWay, ValidatesOnNotifyDataErrors=true}" Grid.Row="3" Margin="3" Height="23" HorizontalAlignment="Left" Grid.Column="1"/>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Button Content="Save" 
+                    Command="{Binding SaveCommand}"
+                    Visibility="{Binding EditMode, Converter={StaticResource VisConverter}}"
+                    HorizontalAlignment="Left"
+                    Margin="25,5,0,0"
+                    VerticalAlignment="Top"
+                    Width="75"/>
+            <Button Content="Add" 
+                    Command="{Binding AddCommand}"
+                    Visibility="{Binding EditMode, Converter={StaticResource NegVisConverter}}"
+                    HorizontalAlignment="Left"
+                    Margin="25,5,0,0"
+                    VerticalAlignment="Top"
+                    Width="75"/>
+            <Button Content="Cancel" 
+                    Command="{Binding CancelCommand}"
+                    HorizontalAlignment="Left"
+                    Margin="150,5,0,0"
+                    VerticalAlignment="Top"
+                    Width="75"/>
+        </Grid>
+    </Grid>
+</UserControl>
