@@ -10,8 +10,10 @@ namespace ZzaDesktop
     {
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
 
+        //SetProperty method is intended to be called from the set block of each property, and encapsulates the check to see
+        //if the value actually changed, and if so, it sets the member variable and triggers the event, PropertyChanged. 
         protected virtual void SetProperty<T>(ref T member, T value,
-            //That attribute makes it so it can automatically pick off the name of the property that called in
+            //That attribute makes it so it can automatically pick off the name of the property that called in (C# feature)
             [CallerMemberName] string propertyName = null)
         {
             if (object.Equals(member,value)) return;
@@ -25,7 +27,9 @@ namespace ZzaDesktop
                 //2- use INotifyPropertyChange (INPC) : more suitable for view and view model
             PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }
-       
+
+        //The OnPropertyChanged is meant for places where maybe changing one property
+        //means you need to trigger an update on two properties, such as a computed property.
         protected virtual void OnPropertyChanged(string propertyName)
         {
             PropertyChanged(this, new PropertyChangedEventArgs(propertyName));

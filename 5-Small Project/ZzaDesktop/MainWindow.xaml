@@ -8,6 +8,7 @@
         Title="MainWindow"
         Height="350"
         Width="525">
+    <!--using a static hook-up from XAML we could marry this view with its view model MainWindowViewModel--> 
     <Window.DataContext>
         <local:MainWindowViewModel/>
     </Window.DataContext>
@@ -46,6 +47,8 @@
                 Grid.Column="2"/>
         </Grid>
         <Grid x:Name="MainContent" Grid.Row="1">
+            <!--Hoster of a child CurrentView  which get programatically switched through the MainWindowViewModel
+            and also using the data templace we could drive the rendering based on CurrentViewModel married CurrentView (see above)-->
             <ContentControl Content="{Binding CurrentViewModel}"/>
         </Grid>
     </Grid>
