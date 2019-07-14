@@ -80,7 +80,8 @@ namespace MVVMCommsDemo.Customers
         }
 
 
-
+		//a delegate trick where we assign an empty anonymous method in as a subscriber.
+        //i.e. a subscriber is always in the list,so never we will have PropertyChanged being null.
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
     }
 }
