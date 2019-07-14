@@ -1,0 +1,25 @@
+To build and run the demos in this module, follow these steps:
+
+Create the Database:
+- Make sure you have SQL Server Developer Edition or Express on your machine.
+- Double click the ZzaDatabaseGen.sql file to open it in SQL Management studio
+- Connect to the appropriate DB server as SQL Management Studio opens where you want the DB to live.
+- Create a New Database named Zza with default settings
+- Execute the ZzaDatabaseGen.sql file to populate the Zza DB
+
+NOTE: If you used a DB server other than the default instance for your local machine (i.e. \SQLExpress) then you
+will need to edit the app.config for all the demos and change the server part of the connection string for the 
+ZzaDbContext to point to your server instead (edit the server=. portion of the connection string and replace . with whatever your server name is).
+
+Open the solution and restore NuGet packages:
+- Make sure you have NuGet package restore enabled under Tools > Options > NuGet Package Manager > General (both check boxes)
+- Right click on the solution root in Solution Explorer and select Manage NuGet Packages for Solution...
+- The top of the dialog will have a yellow bar with a Restore button if packages are missing, click it to restore (requires internet connection)
+
+You should then be able to build and run the demos.
+
+Or use entity framework migration : https://www.entityframeworktutorial.net/efcore/pmc-commands-for-ef-core-migration.aspx
+- Check connection string in app.config
+- Add-Migration Intitial
+- Update-Database
+- then run the data insertion of the script
