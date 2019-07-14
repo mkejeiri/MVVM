@@ -9,8 +9,8 @@ namespace MVVMCommsDemo
 {
     public static class MvvmBehaviors
     {
-
-
+		//alternative 1 : use the attached property and callback
+        //alternative 2 : use behaviour with blend SDK using <Interactions:CallMethodAction TargetObject="{Binding}" MethodName="LoadCustomers"/>
         public static string GetLoadedMethodName(DependencyObject obj)
         {
             return (string)obj.GetValue(LoadedMethodNameProperty);
