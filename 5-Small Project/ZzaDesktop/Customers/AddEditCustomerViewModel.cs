@@ -61,7 +61,14 @@ namespace ZzaDesktop.Customers
             get => _customer;
             set => SetProperty(ref _customer, value);
         }
-
+		/*
+         * Commands on buttons have a command property to hook up to an ICommand exposed as a property on our view model that is an ICommand
+         * and bind to it from the Button's Command property = > i.e. DeleteCommand property of type ICommand as the XAML gets parsed here :
+         * 1 - it calls the get block on that ICommand property to get a reference to the Command object
+         * 2-  it calls CanExecute on that command to determine the initial enabled or disabled state of the command, and it will enable or disable the button as a result.
+         * 3-  it will subscribe to CanExecuteChanged on that ICommand, which allows it to be notified in the future if the enabled or disabled state of that command changes
+         */
+        //private setter because it's on set once inside the ctor
         public RelayCommand SaveCommand { get; private set; }
         public RelayCommand<Customer> AddCommand { get; private set; }
         public RelayCommand CancelCommand { get; private set; }
