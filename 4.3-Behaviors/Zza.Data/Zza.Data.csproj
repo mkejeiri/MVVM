@@ -56,7 +56,6 @@
     <Compile Include="Product.cs" />
     <Compile Include="ProductOption.cs" />
     <Compile Include="ProductSize.cs" />
-    <Compile Include="Properties\Annotations.cs" />
     <Compile Include="ZzaDbContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

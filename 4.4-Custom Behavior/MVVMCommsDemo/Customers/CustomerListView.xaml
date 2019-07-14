@@ -3,14 +3,23 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:cust="clr-namespace:MVVMCommsDemo.Customers"
-             xmlns:local="clr-namespace:MVVMCommsDemo"
-             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-             xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+             xmlns:Interactions="http://schemas.microsoft.com/xaml/behaviors"
              x:Class="MVVMCommsDemo.Customers.CustomerListView"
              mc:Ignorable="d"
              d:DesignHeight="300"
-             d:DesignWidth="300"
-             >
+             d:DesignWidth="300">
+    <!--
+    alternative 1 : use the attached property and callback
+     xmlns:local="clr-namespace:MVVMCommsDemo"    
+    local:MvvmBehaviors.LoadedMethodName="LoadCustomers">
+    
+    alternative 2 : use behaviour with blend SDK : requires System.Windows.Interactivity.WPF & MicrosoftExpressionInteractions
+    <Interactions:Interaction.Triggers>
+        <Interactions:EventTrigger EventName="Loaded">          
+    <Interactions:CallMethodAction TargetObject="{Binding}" MethodName="LoadCustomers"/>
+    </Interactions:EventTrigger>
+    </Interactions:Interaction.Triggers>
+    -->
     <UserControl.Resources>
         <DataTemplate x:Key="CustomerTemplate">
             <Border BorderThickness="3"
@@ -32,11 +41,12 @@
     <UserControl.DataContext>
         <cust:CustomerListViewModel />
     </UserControl.DataContext>
-    <i:Interaction.Triggers>
-        <i:EventTrigger EventName="Loaded">
-            <ei:CallMethodAction TargetObject="{Binding}" MethodName="LoadCustomers" />
-        </i:EventTrigger>
-    </i:Interaction.Triggers>
+    <Interactions:Interaction.Triggers>
+        <Interactions:EventTrigger EventName="Loaded">
+            <!--{Binding} entire datacontext which is the view model-->
+            <Interactions:CallMethodAction TargetObject="{Binding}" MethodName="LoadCustomers"/>
+        </Interactions:EventTrigger>
+    </Interactions:Interaction.Triggers>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -48,13 +58,12 @@
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 Width="75" />
-        <Button Content="Change Customer"
+        <Button Content="Change customer"
                 HorizontalAlignment="Left"
                 Margin="80,0,0,0"
                 VerticalAlignment="Top"
-                Width="100"
-                Click="OnChangeCustomer" />
-
+                Width="150"
+                Click="OnChangeCustomer"/>
 
         <DataGrid x:Name="customerDataGrid"
                   AutoGenerateColumns="False"

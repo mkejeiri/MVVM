@@ -1,38 +1,46 @@
-﻿using System.Windows;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
 
 namespace MVVMCommsDemo
 {
-    public class MvvmBehaviors
+    public static class MvvmBehaviors
     {
-        //alternative 1 : use the attached property and callback
-        //alternative 2 : use behaviour with blend SDK
-        public static string GetLoadedMethodName(DependencyObject viewWithAttachedProperty)
+
+
+        public static string GetLoadedMethodName(DependencyObject obj)
         {
-            return (string)viewWithAttachedProperty.GetValue(LoadedMethodNameProperty);
+            return (string)obj.GetValue(LoadedMethodNameProperty);
         }
 
-        public static void SetLoadedMethodName(DependencyObject viewWithAttachedProperty, string value)
+        public static void SetLoadedMethodName(DependencyObject obj, string value)
         {
-            viewWithAttachedProperty.SetValue(LoadedMethodNameProperty, value);
+            obj.SetValue(LoadedMethodNameProperty, value);
         }
 
-        // Using a DependencyProperty as the backing store for LoadedMethodNameProperty.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty LoadedMethodNameProperty =
-            DependencyProperty.RegisterAttached("LoadedMethodName", typeof(string), typeof(MvvmBehaviors), new PropertyMetadata(null, OnLoadedMethodNameChanged));
+            DependencyProperty.RegisterAttached("LoadedMethodName",
+            typeof(string), typeof(MvvmBehaviors), new PropertyMetadata(null, OnLoadedMethodNameChanged));
 
-        private static void OnLoadedMethodNameChanged(DependencyObject viewWithAttachedProperty, DependencyPropertyChangedEventArgs e)
+        private static void OnLoadedMethodNameChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var view = viewWithAttachedProperty as FrameworkElement;
-            if (view != null)
+            FrameworkElement element = d as FrameworkElement;
+            if (element != null)
             {
-                view.Loaded += (s, e2) =>
+
+                element.Loaded += (s, e2) =>
                 {
-                    var viewModel = view.DataContext;
+                    var viewModel = element.DataContext;
                     if (viewModel == null) return;
                     var methodInfo = viewModel.GetType().GetMethod(e.NewValue.ToString());
                     if (methodInfo != null) methodInfo.Invoke(viewModel, null);
                 };
             }
         }
+
+
     }
 }
