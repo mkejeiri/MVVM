@@ -1,3 +1,4 @@
+git memo : https://www.atlassian.com/git/tutorials/atlassian-git-cheatsheet
 To build and run the demos in this module, follow these steps:
 
 Create the Database:
